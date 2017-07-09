@@ -48,7 +48,7 @@ class App extends Component {
     const styles = {
       width   : 800,
       height  : 500,
-      padding : 30
+      padding : 40
     };
     let data = this.defaultData;
     if( this.state.data.length){
