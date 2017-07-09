@@ -16,6 +16,7 @@ import './App.css';
 
 class App extends Component {
   state = {
+    base_temperature: 0,
     data: [],
     tooltip_text: [],
     tooltip_visible: false
@@ -23,11 +24,11 @@ class App extends Component {
   componentWillMount = () => {
     Actions.getData()
     .then( (response) => {
-      this.setState( { data: response});
+      this.setState( { base_temperature: response.baseTemperature,
+        data: response.monthlyVariance});
     });
   };
   handleMouseEnter = (d) => {
-    //  Name, Nationality, Year, Time, Doping
     this.setState( { tooltip_text: [d.year+":"+d.month,
         d.temperature,
         d.variance
@@ -47,9 +48,10 @@ class App extends Component {
     };
     let data = this.defaultData;
     if( this.state.data.length){
-      const base_temp = parseFloat( this.state.data.baseTemperature);
-      data = this.state.data.monthlyVariance.map( (dp) => {
-        return { coords:[dp.year, dp.month -1],
+      const base_temp = parseFloat( this.state.base_temperature);
+      data = this.state.data.map( (dp) => {
+        return { coords:[dp.year, dp.month],
+                  year: dp.year, month: dp.month,
                   variance: dp.variance,
                   temperature: base_temp + dp.variance
         };

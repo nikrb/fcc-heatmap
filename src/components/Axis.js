@@ -20,7 +20,7 @@ export default class Axis extends React.Component {
     }
     const {formatter, ticks} = this.props;
     if( typeof ticks !== "undefined"){
-      axis.ticks( ticks);
+      axis.tickValues(this.props.scale.domain().filter(function(d,i){ return !(i%ticks)}))
     }
     if( typeof formatter !== "undefined"){
       axis.tickFormat( formatter);

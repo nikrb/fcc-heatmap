@@ -1,25 +1,19 @@
 import React from 'react';
-import ScatterPlot from './ScatterPlot';
+import Heatmap from './Heatmap';
 import Heading from './Heading';
 import Legend from './Legend';
 
 export default (props) => {
   const new_props = {
-    ...props
-  };
-  const wrapper = {
-    position: "relative"
-  };
-  const legend = {
-    top: "50%",
-    left: "80%",
-    width: "150px"
+    ...props,
+    // ticks every 20 years
+    x_ticks: 20
   };
   return (
-    <div style={wrapper}>
+    <div>
       <Heading />
-      <Legend metrix={legend} />
       <Heatmap {...new_props} />
+      <Legend />
     </div>
   );
 };
