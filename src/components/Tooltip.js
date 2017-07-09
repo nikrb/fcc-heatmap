@@ -13,7 +13,7 @@ export default ( props) => {
   const style =  {
     position: "absolute",
     textAlign: "center",
-    width: "200px",
+    width: props.width?props.width : "200px",
     // whiteSpace: "pre",
     padding: "5px",
     font: "12px sans-serif",

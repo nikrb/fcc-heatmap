@@ -19,7 +19,8 @@ class App extends Component {
     base_temperature: 0,
     data: [],
     tooltip_text: [],
-    tooltip_visible: false
+    tooltip_visible: false,
+    tooltip_pos : {x: 0, y:0}
   };
   componentWillMount = () => {
     Actions.getData()
@@ -28,12 +29,13 @@ class App extends Component {
         data: response.monthlyVariance});
     });
   };
-  handleMouseEnter = (d) => {
+  handleMouseEnter = (d, e) => {
     this.setState( { tooltip_text: [d.year+":"+d.month,
         d.temperature,
         d.variance
       ],
       tooltip_visible:true,
+      tooltip_pos: {x: e.clientX, y: e.clientY}
     });
   };
   handleMouseLeave = () => {
@@ -58,7 +60,10 @@ class App extends Component {
       });
     }
     const tooltip = {display: (this.state.tooltip_visible)?"block":"none",
-      top: `calc( 50% - ${styles.height/2}px + ${styles.padding}px )`, left:`calc( 50% - ${styles.width/2}px + ${styles.padding}px + 5px)`
+      left: this.state.tooltip_pos.x,
+      top: this.state.tooltip_pos.y
+      // top: `calc( 50% - ${styles.height/2}px + ${styles.padding}px )`,
+      // left:`calc( 50% - ${styles.width/2}px + ${styles.padding}px + 5px)`
     };
     const axis_labels = {
       xaxis:"Years",
@@ -71,7 +76,7 @@ class App extends Component {
             handleMouseEnter={this.handleMouseEnter} handleMouseLeave={this.handleMouseLeave}/>
           :<div></div>
         }
-        <Tooltip tip_text={this.state.tooltip_text} pos={tooltip} />
+        <Tooltip width={100} tip_text={this.state.tooltip_text} pos={tooltip} />
       </div>
     );
   }
