@@ -20,7 +20,7 @@ const renderRectangles = (props) => {
 export default (props) => {
   return (
     <g>
-      { props.data.map(renderReactangles(props)) }
+      { props.data.map(renderRectangles(props)) }
     </g>
   );
 }
