@@ -31,7 +31,7 @@ class App extends Component {
   };
   handleMouseEnter = (d, e) => {
     this.setState( { tooltip_text: [d.year+":"+this.months[d.month-1],
-        `${d.temperature}\u00b0C`,
+        `${d.temperature.toFixed(2)}\u00b0C`,
         `${d.variance}\u00b0C`
       ],
       tooltip_visible:true,
@@ -57,7 +57,7 @@ class App extends Component {
         return { coords:[dp.year, dp.month],
                   year: dp.year, month: dp.month, month_name: this.months[dp.month-1],
                   variance: dp.variance,
-                  temperature: parseFloat( base_temp + dp.variance).toFixed(2)
+                  temperature: parseFloat( base_temp + dp.variance)
         };
       });
     }
