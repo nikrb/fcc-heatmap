@@ -1,24 +1,13 @@
 import React from 'react';
-import * as d3 from 'd3';
 
 export default (props) => {
-  const min_temp = (data) => d3.min( data, (d) => d.temperature)
-  const mean_temp = (data) => d3.mean( data, (d) => d.temperature);
-  const max_temp = (data) => d3.max( data, (d) => d.temperature);
-  const colourScale = (props) => {
-    return d3.scaleLinear()
-      .domain( [min_temp(props.data), mean_temp(props.data), max_temp(props.data)])
-      .range( ['blue', 'yellow', 'red'])
-  };
-  const min = min_temp( props.data);
-  const max = max_temp( props.data);
-  const colours = colourScale( props);
-  const tdiff = (max-min)/6;
+  const colours = props.colourScale( props);
+  const tdiff = (props.max_temp - props.min_temp)/6;
   let cvals = []
   for( let i=0; i<6; i++){
-    cvals.push( min + i * tdiff);
+    cvals.push( props.min_temp + i * tdiff);
   }
-  cvals.push( max);
+  cvals.push( props.max_temp);
   const base = {
     display: "flex",
     justifyContent: "center",
