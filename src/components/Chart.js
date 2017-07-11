@@ -19,7 +19,7 @@ export default (props) => {
     <div>
       <Heading />
       <Heatmap {...new_props} />
-      <Legend />
+      <Legend {...new_props} />
     </div>
   );
 };
