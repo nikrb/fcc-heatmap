@@ -35,4 +35,4 @@ export default (props) => {
       <XYAxis {...d3Props}/>
     </svg>
   );
-}
+};
