@@ -11,21 +11,26 @@ export default (props) => {
     return months[d-1];
   };
   // pass colour scale to heatmap and legend
-  const min_temp = (data) => d3.min( data, (d) => d.temperature)
-  const mean_temp = (data) => d3.mean( data, (d) => d.temperature);
-  const max_temp = (data) => d3.max( data, (d) => d.temperature);
+  const min_temp = d3.min( props.data, (d) => d.temperature);
+  const mean_temp = d3.mean( props.data, (d) => d.temperature);
+  const max_temp = d3.max( props.data, (d) => d.temperature);
   const colourScale = (props) => {
     return d3.scaleLinear()
-      .domain( [min_temp(props.data), mean_temp(props.data), max_temp(props.data)])
+      .domain( [min_temp, mean_temp, max_temp])
       .range( ['blue', 'yellow', 'red'])
   };
+  const tdiff = ( max_temp - min_temp)/6;
+  let tvals = []
+  for( let i=0; i<6; i++){
+    tvals.push( min_temp + i * tdiff);
+  }
+  tvals.push( max_temp);
 
   const new_props = {
     ...props,
     yaxis_format : formatMonths,
-    min_temp: min_temp(props.data),
-    max_temp: max_temp(props.data),
     colourScale: colourScale,
+    temp_values: tvals,
     // ticks every 20 years
     x_ticks: 20
   };
