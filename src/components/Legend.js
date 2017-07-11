@@ -38,7 +38,6 @@ export default (props) => {
   };
   return (
     <div style={wrapper}>
-      Legend
       {colour_boxes}
     </div>
   );
